@@ -9,3 +9,20 @@ web:
     - "8000:8000"
   links:
     - postgres
+    - rabbitmq
+worker:
+  build: .
+  command: celery -A hello worker -l info --autoreload
+  environment:
+    C_FORCE_ROOT: 1
+  volumes:
+    - .:/code
+  links:
+    - postgres
+    - rabbitmq
+
+rabbitmq:
+  image: rabbitmq
+  ports:
+    - "5672:5672"
+    - "15672:15672"
