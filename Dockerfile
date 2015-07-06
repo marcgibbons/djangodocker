@@ -5,4 +5,4 @@ WORKDIR /code
 ADD requirements.txt /code/
 RUN pip install -r requirements.txt
 ADD . /code/
-CMD python manage.py migrate --noinput && gunicorn -c gunicorn.py hello.wsgi
+RUN adduser --disabled-password --gecos '' appuser
